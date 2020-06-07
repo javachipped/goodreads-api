@@ -1,5 +1,6 @@
 import axios from "axios";
-import xml2js, { parseString } from "xml2js";
+import { parseString } from "xml2js";
+import { RootObjectSearch, Search } from "./types";
 
 interface GoodreadsConfig {
   developerKey: string;
@@ -7,10 +8,21 @@ interface GoodreadsConfig {
 
 interface Book {
   title: string;
-  author: string;
+  author: Author;
+}
+
+interface Author {
+  name: string;
+}
+
+interface SearchInput {
+  query: string;
+  page?: number;
+  searchInFields?: "title" | "author" | "all";
 }
 
 const BASE_URL = "https://www.goodreads.com";
+const RESULTS_PER_PAGE = 20;
 
 export default class Goodreads {
   developerKey: string;
@@ -18,11 +30,15 @@ export default class Goodreads {
     this.developerKey = developerKey;
   }
 
-  async getBooks(): Promise<Book[]> {
+  async searchBooks({
+    query,
+    page = 1,
+    searchInFields = "all",
+  }: SearchInput): Promise<{ totalPages: number; books: Book[] }> {
     const response = await axios.get(
-      `${BASE_URL}/search/index.xml?key=${this.developerKey}&q=programming`
+      `${BASE_URL}/search/index.xml?key=${this.developerKey}&q=${query}&page=${page}&search=${searchInFields}`
     );
-    const data = await new Promise<any>((resolve, reject) => {
+    const data: RootObjectSearch = await new Promise<any>((resolve, reject) => {
       parseString(response.data, (err, result) => {
         if (err) {
           reject(err);
@@ -32,13 +48,23 @@ export default class Goodreads {
       });
     });
 
-    return data.GoodreadsResponse.search[0].results[0].work.map(
-      ({ best_book }: any) => ({
-        title: best_book[0]?.title[0] || "NOT FOUND",
-        author: (best_book[0]?.author || [])
-          .map((author: any) => author.name)
-          .join(", "),
-      })
+    const search: Search = data.GoodreadsResponse.search[0];
+    const totalPages = Math.ceil(
+      parseInt(search["total-results"][0]) / RESULTS_PER_PAGE
     );
+
+    const books = (search.results[0]?.work || []).map(({ best_book }) => ({
+      title: best_book[0]?.title[0] || "NOT FOUND",
+      author: {
+        name: (best_book[0]?.author || [])
+          .map((author) => author.name)
+          .join(", "),
+      },
+    }));
+
+    return {
+      totalPages,
+      books,
+    };
   }
 }
