@@ -6,7 +6,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "dev": "yarn build && nodemon",
+    "dev": "nodemon",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepublish": "tsc"
   },
