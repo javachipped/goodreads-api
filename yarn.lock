@@ -24,6 +24,13 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.0.11.tgz#61d4886e2424da73b7b25547f59fdcb534c165a3"
   integrity sha512-lCvvI24L21ZVeIiyIUHZ5Oflv1hhHQ5E1S25IRlKIXaRkVgmXpJMI3wUJkmym2bTbCe+WoIibQnMVAU3FguaOg==
 
+"@types/oauth@^0.9.1":
+  version "0.9.1"
+  resolved "https://registry.yarnpkg.com/@types/oauth/-/oauth-0.9.1.tgz#e17221e7f7936b0459ae7d006255dff61adca305"
+  integrity sha512-a1iY62/a3yhZ7qH7cNUsxoI3U/0Fe9+RnuFrpTKr+0WVOzbKlSLojShCKe20aOD1Sppv+i8Zlq0pLDuTJnwS4A==
+  dependencies:
+    "@types/node" "*"
+
 "@types/xml2js@^0.4.5":
   version "0.4.5"
   resolved "https://registry.yarnpkg.com/@types/xml2js/-/xml2js-0.4.5.tgz#d21759b056f282d9c7066f15bbf5c19b908f22fa"
@@ -557,6 +564,11 @@ normalize-url@^4.1.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/normalize-url/-/normalize-url-4.5.0.tgz#453354087e6ca96957bd8f5baf753f5982142129"
   integrity sha512-2s47yzUxdexf1OhyRi4Em83iQk0aPvwTddtFz4hnSSw9dCEsLEGf6SwIO8ss/19S9iBb5sJaOuTvTGDeZI00BQ==
+
+oauth@^0.9.15:
+  version "0.9.15"
+  resolved "https://registry.yarnpkg.com/oauth/-/oauth-0.9.15.tgz#bd1fefaf686c96b75475aed5196412ff60cfb9c1"
+  integrity sha1-vR/vr2hslrdUda7VGWQS/2DPucE=
 
 once@^1.3.1, once@^1.4.0:
   version "1.4.0"

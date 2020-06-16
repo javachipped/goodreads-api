@@ -17,8 +17,10 @@
     "typescript": "^3.9.5"
   },
   "dependencies": {
+    "@types/oauth": "^0.9.1",
     "@types/xml2js": "^0.4.5",
     "axios": "^0.19.2",
+    "oauth": "^0.9.15",
     "xml2js": "^0.4.23"
   }
 }
